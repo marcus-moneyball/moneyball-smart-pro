@@ -7,8 +7,7 @@
 // Substitui o antigo modo de varredura automática (que ainda existe
 // no Worker em /scanner?tenant=, só não é mais usado por aqui).
 // ============================================================
-import { alertaErro, alertaAviso, copiarTexto, baixarJSON } from "./../shared/ui.js";
-
+import { alertaErro, alertaAviso, copiarTexto, baixarJSON } from "../shared/ui.js";
 const SCANNER_BASE_URL = "https://moneyball-scanner.marcusvalves7.workers.dev";
 
 // Ligas configuradas no Worker (config/leagues.json) — mantenha isso em
