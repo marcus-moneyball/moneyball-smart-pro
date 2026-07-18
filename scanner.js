@@ -8,7 +8,7 @@
 // no Worker em /scanner?tenant=, só não é mais usado por aqui).
 // ============================================================
 import { alertaErro, alertaAviso, copiarTexto, baixarJSON } from "/moneyball-smart-pro/shared/ui.js";
-const SCANNER_BASE_URL = "https://moneyball-scanner.marcusvalves7.workers.dev";
+const SCANNER_BASE_URL = "https://moneyball-scanner.marcusvalves7.workers.dev/";
 
 // Ligas configuradas no Worker (config/leagues.json) — mantenha isso em
 // sincronia se adicionar/remover ligas do lado do Worker.
