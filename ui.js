@@ -12,6 +12,8 @@ export function initAppTabs() {
     ];
 
     const container = document.getElementById("app-tabs");
+    if (!container) return; // Proteção caso o DOM não esteja pronto
+
     container.innerHTML = tabs.map(t => `
         <button onclick="window.__selecionarAppTab('${t.id}')" id="apptab-${t.id}"
             class="app-tab py-3 rounded-xl border text-sm font-semibold flex flex-col items-center gap-1 transition-all">
@@ -22,15 +24,24 @@ export function initAppTabs() {
 
     window.__selecionarAppTab = (id) => {
         tabs.forEach(t => {
-            document.getElementById(`view-${t.id}`)?.classList.add("hidden");
+            const view = document.getElementById(`view-${t.id}`);
+            if (view) view.classList.add("hidden");
+            
             const btn = document.getElementById(`apptab-${t.id}`);
-            btn.classList.remove("bg-accent/15", "text-accent", "border-accent/40");
-            btn.classList.add("bg-base-panel", "text-slate-400", "border-base-border");
+            if (btn) {
+                btn.classList.remove("bg-accent/15", "text-accent", "border-accent/40");
+                btn.classList.add("bg-base-panel", "text-slate-400", "border-base-border");
+            }
         });
-        document.getElementById(`view-${id}`)?.classList.remove("hidden");
+        
+        const activeView = document.getElementById(`view-${id}`);
+        if (activeView) activeView.classList.remove("hidden");
+        
         const activeBtn = document.getElementById(`apptab-${id}`);
-        activeBtn.classList.remove("bg-base-panel", "text-slate-400", "border-base-border");
-        activeBtn.classList.add("bg-accent/15", "text-accent", "border-accent/40");
+        if (activeBtn) {
+            activeBtn.classList.remove("bg-base-panel", "text-slate-400", "border-base-border");
+            activeBtn.classList.add("bg-accent/15", "text-accent", "border-accent/40");
+        }
     };
 
     // Aba inicial
