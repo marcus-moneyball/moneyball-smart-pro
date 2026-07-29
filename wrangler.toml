@@ -1,0 +1,10 @@
+name = "moneyball-cortex-engine"
+main = "index.js"
+compatibility_date = "2026-07-29"
+
+[vars]
+AI_PROVIDER = "groq"
+
+[[kv_namespaces]]
+binding = "KNOWLEDGE_KV"
+id = "eab79de1f7eb4aeaba503c9bc9c0a789"
