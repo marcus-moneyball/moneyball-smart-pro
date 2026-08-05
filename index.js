@@ -1,39 +1,18 @@
-import { runPipeline } from "./Runpipeline.js";
+/**
+ * Analyser — única porta pública. Por fora, ninguém enxerga
+ * providers, coleta, normalização ou investigação — só isto.
+ */
+import { runAnalyser } from './analyser.js';
 
-function jsonResponse(body, status = 200) {
-  return new Response(JSON.stringify(body, null, 2), {
-    status,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
-}
+export function criarAnalyser({ sportRegistry, clock }) {
+  if (!sportRegistry) throw new Error('Analyser: sportRegistry é obrigatório');
 
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-
-    if (url.pathname === "/test-pipeline") {
-      try {
-        const resultado = await runPipeline(env);
-
-        return jsonResponse(resultado);
-      } catch (e) {
-        return jsonResponse(
-          {
-            erro: "Falha no CortexEngine",
-            detalhe: e.message,
-            stack: e.stack,
-          },
-          500
-        );
+  return {
+    async run(matchInput) {
+      if (!matchInput || !matchInput.sport || !matchInput.home_team || !matchInput.away_team) {
+        throw new Error('Analyser: matchInput inválido');
       }
-    }
-
-    return new Response(
-      "CortexEngine online.\n\nUse:\n/test-pipeline",
-      { status: 200 }
-    );
-  },
-};
+      return runAnalyser(matchInput, { sportRegistry, clock });
+    },
+  };
+}
