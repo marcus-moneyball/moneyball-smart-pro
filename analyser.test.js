@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { criarAnalyser } from './index.js';
 import { criarSportRegistry } from './core/sportRegistry.js';
-import { criarFutebolSportModule } from './sports/futebol/module.js';
+import { criarFutebolSportModule } from './sports/module.js';
 
 const clock = { now: () => new Date('2026-08-09T12:00:00Z') };
 

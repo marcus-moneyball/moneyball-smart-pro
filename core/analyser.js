@@ -1,11 +1,12 @@
-import { collectMatchData } from './collection/collectMatchData.js';
-import { normalizeFacts, normalizeOdds, normalizeNewsFacts, markConflicts } from './normalization/normalizeFacts.js';
-import { investigateMarkets } from './investigation/marketAnalysis.js';
-import { buildExecutiveSummary } from './builders/executiveSummaryBuilder.js';
-import { buildTelegramCard } from './builders/telegramCardBuilder.js';
-import { buildMdm } from './builders/mdmBuilder.js';
-import { assembleOutput } from './output/outputAssembler.js';
+import { collectMatchData } from '../modules/collectMatchData.js';
+import { normalizeFacts, normalizeOdds, normalizeNewsFacts, markConflicts } from '../modules/normalizeFacts.js';
+import { investigateMarkets } from '../modules/marketAnalysis.js';
 
+import { buildExecutiveSummary } from '../builders/executiveSummaryBuilder.js';
+import { buildTelegramCard } from '../builders/telegramCardBuilder.js';
+import { buildMdm } from '../builders/mdmBuilder.js';
+
+import { assembleOutput } from '../outputAssembler.js';
 export async function runAnalyser(matchInput, { sportRegistry, clock = { now: () => new Date() } }) {
   const sportModule = sportRegistry.get(matchInput.sport);
   const now = clock.now();

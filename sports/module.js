@@ -1,4 +1,4 @@
-import * as futebolSchema from '../../normalization/sportSchemas/futebol.js';
+import * as futebolSchema from './futebol.js';
 
 /**
  * Agrupa providers + schema de Futebol no shape que o Analyser espera

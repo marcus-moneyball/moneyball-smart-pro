@@ -2,7 +2,7 @@
  * Analyser — única porta pública. Por fora, ninguém enxerga
  * providers, coleta, normalização ou investigação — só isto.
  */
-import { runAnalyser } from './analyser.js';
+import { runAnalyser } from './core/analyser.js';
 
 export function criarAnalyser({ sportRegistry, clock }) {
   if (!sportRegistry) throw new Error('Analyser: sportRegistry é obrigatório');
