@@ -1,4 +1,4 @@
-import { runPipeline } from "./Runpipeline.js";
+import { runPipeline } from "./src/pipeline/runPipeline.js";
 
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body, null, 2), {
