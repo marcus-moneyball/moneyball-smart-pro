@@ -2,6 +2,19 @@ const GROQ_MODEL_PADRAO = "openai/gpt-oss-120b";
 
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 
+/**
+ * @param {object} env
+ * @param {object} opcoes
+ * @param {string} opcoes.systemPrompt
+ * @param {string} opcoes.userContent
+ * @param {string} [opcoes.model]
+ * @param {number} [opcoes.temperature]
+ * @param {"json"|"texto"} [opcoes.formato] - "json" (padrão, comportamento
+ *   original: faz parse da resposta como JSON) ou "texto" (devolve a
+ *   resposta crua, pra prompts que respondem em markdown livre, como o
+ *   Radar). Callers existentes não passam esse campo, então continuam
+ *   se comportando exatamente como antes.
+ */
 export async function chamarGroqRest(env, opcoes) {
 
   const apiKey = env.GROQ_API_KEY;
@@ -9,6 +22,8 @@ export async function chamarGroqRest(env, opcoes) {
   if (!apiKey) {
     throw new Error("GROQ_API_KEY não configurada no Worker.");
   }
+
+  const formato = opcoes.formato ?? "json";
 
   const response = await fetch(GROQ_URL, {
     method: "POST",
@@ -43,6 +58,10 @@ export async function chamarGroqRest(env, opcoes) {
 
   if (!texto) {
     throw new Error("Groq respondeu vazio.");
+  }
+
+  if (formato === "texto") {
+    return { resposta: texto, raciocinio: null, bruto };
   }
 
   let resposta;
